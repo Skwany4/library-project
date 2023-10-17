@@ -3,7 +3,7 @@ h1
     text-align: center;
 }
 
-.TopPanel ul
+.NavigationBar ul
 {
     list-style: none;
     margin: 0;
@@ -12,21 +12,31 @@ h1
     background-color: pink;
 }
 
-.TopPanel li
+.NavigationBar li
 {
     float: left;
 }
 
-.TopPanel li:hover
+.NavigationBar li:hover
 {
     background-color: red;
 }
 
-.TopPanel a
+.NavigationBar a
 {
     display: block;
     color: black;
     text-align: center;
     padding: 14px 200px;
     text-decoration: none;
+}
+
+.RegistrationPanel input
+{
+    margin-bottom: 10px;
+}
+
+.RegistrationPanel 
+{ 
+    text-align: center;
 }
