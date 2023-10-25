@@ -9,7 +9,7 @@ h1
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: pink;
+    background-color: #99592a;
 }
 
 .NavigationBar li
@@ -43,28 +43,48 @@ h1
 
 .news
 {
-    padding: 50px;
+    height: 20vh;
+    /* padding: 50px; */
     background-color: darkgrey;
     text-align: center;
 }
-.ControlPanel 
+.ControlPanel1
 {
-    width: 200px;
-    height: 150px;
-}
-.ControlPanel ul
-{
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    display: inline-block;
+    border: 10px solid black;
+    margin: 10px;
+    padding: 10px;
     background-color: pink;
+    text-decoration: none;
 }
 
-.ControlPanel a
+.header
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header ul
+{
+    width: 70%;
+    justify-content: right;
+    display: flex;
+    list-style: none;
+    background-color: #99592a;
+
+}
+.header a
 {
     display: block;
     color: black;
-    text-align: left;
-    padding: 10px 10px;
+    padding: 30px;
+    margin: 10px;
+   
     text-decoration: none;
+    border: 10px solid black;
+
+}
+.header img
+{
+    height: 10vh;
 }
