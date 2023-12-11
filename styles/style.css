@@ -70,13 +70,14 @@ h1
     justify-content: right;
     display: flex;
     list-style: none;
-    background-color: #99592a;
+    background-color: #2B303A;
 
 }
 .header a
 {
     display: block;
     color: black;
+    background-color: #CAC4CE;
     padding: 30px;
     margin: 10px;
    
@@ -88,16 +89,6 @@ h1
 {
     height: 10vh;
 }
-/* .LoginPanel
-{
-    margin: auto;
-    padding: 1vw;           
-    height: 50%;
-    width: 50%;
-    text-align: center;
-    border: 10px solid pink;
-} */
-
 .MainPage
 {
     text-align: center;
