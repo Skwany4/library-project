@@ -13,6 +13,7 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("styles"));
@@ -22,10 +23,8 @@ app.use(express.static("Images"));
 
 const checkAuthentication = (req, res, next) => {
   if (req.session && req.session.loggedin) {
-    // Jeśli użytkownik jest zalogowany, przechodzi dalej
     return next();
   } else {
-    // Jeśli użytkownik nie jest zalogowany, przekieruj go na stronę logowania
     res.redirect("/login");
   }
 };
