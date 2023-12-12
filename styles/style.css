@@ -1,8 +1,12 @@
+body
+{
+    height: 100%;
+    margin: 0;
+}
 h1 
 {
     text-align: center;
 }
-
 .NavigationBar ul
 {
     list-style: none;
@@ -43,10 +47,19 @@ h1
 
 .news
 {
-    height: 20vh;
-    /* padding: 50px; */
+    display: block;
+    height: 40vh;
+    width: 100%;
     background-color: darkgrey;
     text-align: center;
+    background-image: url("Banner1.jpg");
+    background-size: cover;
+    background-position: center;
+}
+#banner
+{
+    width: 100%;
+    object-fit: fill;
 }
 .ControlPanel1
 {
@@ -63,6 +76,7 @@ h1
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 0;
 }
 .header ul
 {
@@ -70,7 +84,8 @@ h1
     justify-content: right;
     display: flex;
     list-style: none;
-    background-color: #2B303A;
+    background-color: #212529;
+    margin: 0;
 
 }
 .header a
@@ -89,10 +104,7 @@ h1
 {
     height: 10vh;
 }
-.MainPage
-{
-    text-align: center;
-}
+
 .icons 
 { 
     display: flex;
@@ -176,7 +188,7 @@ h1
     padding: 10px;
 }
 .footer {
-    background-color: #333;
+    background-color: #212529;
     color: white;
     padding: 20px;
     text-align: center;
