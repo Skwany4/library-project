@@ -2,37 +2,14 @@ body
 {
     height: 100%;
     margin: 0;
+    padding: 0;
+    background-color: #F8F9FA;
+    font-family: 'Roboto', sans-serif;
+
 }
 h1 
 {
     text-align: center;
-}
-.NavigationBar ul
-{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #99592a;
-}
-
-.NavigationBar li
-{
-    float: right;
-}
-
-.NavigationBar li:hover
-{
-    background-color: red;
-}
-
-.NavigationBar a
-{
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 10px 20px;
-    text-decoration: none;
 }
 
 .RegistrationPanel input
@@ -45,7 +22,7 @@ h1
     text-align: center;
 }
 
-.news
+.Banner
 {
     display: block;
     height: 40vh;
@@ -56,11 +33,7 @@ h1
     background-size: cover;
     background-position: center;
 }
-#banner
-{
-    width: 100%;
-    object-fit: fill;
-}
+
 .ControlPanel1
 {
     border: 10px solid black;
@@ -77,34 +50,39 @@ h1
     align-items: center;
     justify-content: space-between;
     margin: 0;
+    background-color: #212529;
 }
 .header ul
 {
+    color: #F8F9FA;
     width: 70%;
     justify-content: right;
     display: flex;
     list-style: none;
     background-color: #212529;
-    margin: 0;
+    margin: 1%;
 
+}
+.header a:hover
+{
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
 }
 .header a
 {
     display: block;
-    color: black;
-    background-color: #CAC4CE;
-    padding: 30px;
-    margin: 10px;
-   
+    font-size: larger;
+    color: #F8F9FA;
+    margin:0 50px;
     text-decoration: none;
-    border: 10px solid black;
 
 }
 .header img
 {
     height: 10vh;
+    padding-left: 2%;
+    margin: 1vh;
 }
-
 .icons 
 { 
     display: flex;
@@ -148,35 +126,65 @@ h1
     text-align: center;
     border: 1px solid #ccc;
     padding: 20px;
-    background-color: #f5f5f5;
+    background-color: #F8F9FA;
 }
 .LoginPanel {
-    margin: auto;
-    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 50%;
+    height: 50%;
+    padding: 10px;
+    margin: auto;
     text-align: center;
-    border: 2px solid #99592a;
-    background-color: #f5f5f5;
+    border: 10px solid #212529;
+    border-radius: 25px;
+    background-color: #6C757D;
   }
-  
   .LoginPanel input {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
     box-sizing: border-box;
   }
-  
-  .LoginPanel button {
-    background-color: #007bff;
-    color: #fff;
+  .LoginPanel form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+}
+.LoginPanel a {
+    color: #F8F9FA;
+    text-decoration: none;
+    margin: 5px;
+    transition: color 0.3s ease;
+}
+
+.LoginPanel a:hover {
+    color: #343A40;
+}
+#SubmitPassword
+{
+    background-color: #212529;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 24px;
     cursor: pointer;
-  }
-  
-  .LoginPanel button:hover {
-    background-color: #0056b3;
-  }
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+.LoginPanel h1 {
+    color: #F8F9FA;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+#SubmitPassword:hover {
+    background-color: #343A40;
+}
 .IconsElements
 {
     border: 2px solid black;
