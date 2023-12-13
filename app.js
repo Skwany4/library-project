@@ -29,6 +29,30 @@ const checkAuthentication = (req, res, next) => {
   }
 };
 // Obsługa strony logowania
+app.get("/", (req, res) => {
+  // Sprawdź, czy użytkownik jest zalogowany
+  if (req.session && req.session.loggedin) {
+    // Renderuj odpowiednią stronę dla zalogowanego użytkownika
+    const MainPageLoggedInPath = path.join(__dirname, "views", "MainPageLoggedIn.html");
+    res.sendFile(MainPageLoggedInPath);
+  } else {
+    // Renderuj standardową stronę główną dla niezalogowanego użytkownika
+    const MainPagePath = path.join(__dirname, "views", "MainPage.html");
+    res.sendFile(MainPagePath);
+  }
+});
+app.get("/logout", (req, res) => {
+  // Zakończ sesję
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Błąd podczas wylogowywania:", err);
+      res.send("Błąd podczas wylogowywania");
+    } else {
+      // Przekieruj na stronę główną po wylogowaniu
+      res.redirect("/");
+    }
+  });
+});
 app.get("/login", (req, res) => {
   const loginPath = path.join(__dirname, "views", "LoginPanel.html");
   res.sendFile(loginPath);
@@ -41,11 +65,6 @@ app.get("/AdminPanel", checkAuthentication, (req, res) => {
   const AdminPanelPath = path.join(__dirname, "views", "AdminPanel.html");
   res.sendFile(AdminPanelPath);
 });
-app.get("/UserPanel", (req, res) => {
-  const loginPath = path.join(__dirname, "views", "UserPanel.html");
-  res.sendFile(loginPath);
-});
-
 // Obsługa danych z formularza logowania
 app.post("/login", (req, res) => {
   const email = req.body.email;
@@ -70,6 +89,7 @@ app.post("/login", (req, res) => {
           } else {
             res.redirect("/UserPanel");
           }
+            
           // res.redirect('/UserPanel')
         } else {
           // Nieprawidłowe dane logowania
