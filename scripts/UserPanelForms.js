@@ -57,3 +57,12 @@ function clearContent() {
   // Czyszczenie zawartości kontenera przed dodaniem nowej treści
   document.getElementById('content-container').innerHTML = '';
 }
+function logout() {
+  fetch('/logout', { method: 'GET' })
+      .then(response => {
+          window.location.href = "/";
+      })
+      .catch(error => {
+          console.error('Błąd podczas wylogowywania:', error);
+      });
+}
