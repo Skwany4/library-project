@@ -4,17 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css" />
-    <title>UserPanel</title>
+    <link rel="stylesheet" href="style.css">
+    <title>User Panel</title>
 </head>
 
-<body>
-    <h1>Panel użytkownika</h1>
-    <div class="ControlPanel1"><a href="">Katalog książek</a></div>
-    <div class="ControlPanel1"><a href="">Moje wypozyczenia</a></div>
-    <div class="ControlPanel1"><a href="">Wypozycz ksiazke</a></div>
-    <div class="ControlPanel1"><a href="">Przedłuż wypożyczenie</a></div>
-    <div class="ControlPanel1"><a href="">Zwroc ksiazke</a></div>
+<body style="background-image: url(LoginBackground.jpg);">
+
+    <h1>User Panel</h1>
+
+    <button id="button0" class="UserPanel" onclick="showBookCatalog()">Book catalog</button><br>
+    <button id="button1" class="UserPanel" onclick="showMyRentals()">My rentals</button><br>
+    <button id="button2" class="UserPanel" onclick="showRentForm()">Rent a book</button><br>
+    <button id="button3" class="UserPanel" onclick="showExtendForm()">Extend the rental</button><br>
+    <button id="button4" class="UserPanel" onclick="showReturnForm()">Return the book</button><br>
+    <button id="button5" class="UserPanel" onclick="showLogout()">Log out</button><br>
+
+    <div id="content-container"></div>
+
+    <script src="UserPanelForms.js"></script>
 </body>
 
 </html>

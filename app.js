@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("styles"));
 app.use(express.static("views"));
 app.use(express.static("Images"));
-//app.use(express.static('scripts'))
+app.use(express.static('scripts'))
 
 const checkAuthentication = (req, res, next) => {
   if (req.session && req.session.loggedin) {
@@ -40,6 +40,10 @@ app.get("/UserPanel", checkAuthentication, (req, res) => {
 app.get("/AdminPanel", checkAuthentication, (req, res) => {
   const AdminPanelPath = path.join(__dirname, "views", "AdminPanel.html");
   res.sendFile(AdminPanelPath);
+});
+app.get("/UserPanel", (req, res) => {
+  const loginPath = path.join(__dirname, "views", "UserPanel.html");
+  res.sendFile(loginPath);
 });
 
 // Obsługa danych z formularza logowania
