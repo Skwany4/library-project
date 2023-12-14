@@ -1,5 +1,6 @@
 function showBookCatalog() {
   clearContent();
+  location.href = "Books.html"
   document.getElementById('content-container').innerHTML = '<p>Book catalog content goes here.</p>';
 }
 
