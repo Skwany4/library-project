@@ -27,10 +27,6 @@ function showRentForm() {
       <input type="date" id="ReturnDate" name="ReturnDate">
 
       <button type="submit">Rent</button>
-
-      <script>
-      
-    </script>
     </form>
   `
 }
@@ -38,12 +34,38 @@ function showRentForm() {
 function showExtendForm() {
   clearContent();
   // Tutaj możesz dodać kod do wyświetlenia formularza do przedłużenia wypożyczenia
-  document.getElementById('content-container').innerHTML = '<p>Extend rental form goes here.</p>';
+  document.getElementById('content-container').innerHTML =  `
+  <form class="UserForm">
+    <label for="bookTitle">Select book:</label>
+    <input type="text" id="bookTitle" name="bookTitle" required> <br>
+
+    <label for="PriviousRentDate">Select privious return date</label>
+    <input type="date" id="PriviousRentDate" name="PriviousRentDate">
+
+    <label for="NewReturnDate">Select extend date</label>
+    <input type="date" id="NewReturnDate" name="NewReturnDate">
+
+    <button type="submit">Extend</button>
+  </form>
+`;
 }
 
 function showReturnForm() {
   clearContent();
-  // Tutaj możesz dodać kod do wyświetlenia formularza do zwrotu książki
+  `
+  <form class="UserForm">
+    <label for="bookTitle">Select book:</label>
+    <input type="text" id="bookTitle" name="bookTitle" required> <br>
+
+    <label for="PriviousRentDate">Select privious return date</label>
+    <input type="date" id="PriviousRentDate" name="PriviousRentDate">
+
+    <label for="NewReturnDate">Select extend date</label>
+    <input type="date" id="NewReturnDate" name="NewReturnDate">
+
+    <button type="submit">Extend</button>
+  </form>
+`
   document.getElementById('content-container').innerHTML = '<p>Return book form goes here.</p>';
 }
 

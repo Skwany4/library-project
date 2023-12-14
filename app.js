@@ -81,8 +81,8 @@ app.post("/login", (req, res) => {
         if (results.length > 0) {
           role = results[0].Role;
 
-          req.session.loggedin = true; // Ustaw flagę zalogowania w sesji
-          req.session.email = email; // Przechowaj email w sesji (lub inne informacje o użytkowniku)
+          req.session.loggedin = true;
+          req.session.email = email;
 
           if (role == "admin") {
             res.redirect("/AdminPanel");
@@ -90,9 +90,7 @@ app.post("/login", (req, res) => {
             res.redirect("/UserPanel");
           }
             
-          // res.redirect('/UserPanel')
         } else {
-          // Nieprawidłowe dane logowania
           res.send("Nieprawidłowe dane logowania");
         }
       }
