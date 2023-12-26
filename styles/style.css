@@ -84,25 +84,54 @@ h1 {
   background-color: lightslategray;
 }
 .AdminButtons {
+  background-color: #212529;
+  color: #f8f9fa;
+  width: 10vw;
+  height: 10vh;
   padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
+  margin: 5px;
+  margin-left: 20px;
   border: none;
   cursor: pointer;
-  margin: 5px;
-  width: 25%;
+  font-size: 16px;
+  border-radius: 5px;
 }
-
-.AdminForms {
-  display: none;
-  width: 300px;
+.AdminButtons:hover{
+  background-color: #343a40;
+}
+.AdminButtons:active{
+  background-color: #1f679d;
+}
+.AdminForms{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  padding: 10px;
   margin: auto;
   text-align: center;
-  border: 1px solid #ccc;
-  padding: 20px;
-  background-color: #f8f9fa;
-}
-.LoginPanel {
+  border: 10px solid #212529;
+  border-radius: 25px;
+  background-color: #6c757d;
+  }
+  
+.AdminForms input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+.AdminForms form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+  }
+  .LoginPanel {
   position: absolute;
   top: 50%;
   left: 50%;

@@ -5,6 +5,8 @@ const path = require("path");
 const app = express();
 const port = 3000;
 const session = require("express-session");
+const adminOperations = require("./scripts/AdminOperations");
+
 
 app.use(
   session({
@@ -137,7 +139,10 @@ app.post("/register", (req, res) => {
     }
   );
 });
-
+app.post("/addBook", adminOperations.addBook);
+app.post("/deleteBook", adminOperations.deleteBook);
+app.post("/addUser", adminOperations.addUser);
+app.post("/deleteUser", adminOperations.deleteUser);
 app.listen(port, () => {
   console.log(`Serwer działa na http://localhost:${port}`);
 });

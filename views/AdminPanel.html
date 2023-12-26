@@ -15,87 +15,17 @@
 </head>
 
 <body>
-    <h1>Panel Administratora</h1>
-    <button id="button0" class="AdminButtons">Moje konto</button><br>
-    <button id="button1" class="AdminButtons">Dodaj książkę do bazy</button><br>
-    <button id="button2" class="AdminButtons">Usuń książkę z bazy</button><br>
-    <button id="button3" class="AdminButtons">Dodaj użytkownika do bazy</button><br>
-    <button id="button4" class="AdminButtons">Usuń użytkownika z bazy</button><br>
-    <button id="button5" class="AdminButtons">Wyloguj</button><br>
+    <h1>Admin Panel</h1>
+    <button id="button1" class="AdminButtons" onclick="showAddBook()">Add book to database</button><br>
+    <button id="button2" class="AdminButtons" onclick="showDeleteBook()">Delete book from database</button><br>
+    <button id="button3" class="AdminButtons" onclick="showAddUser()">Add user to database</button><br>
+    <button id="button4" class="AdminButtons" onclick="showDeleteUser()">Delete user from database</button><br>
+    <button id="button5" class="AdminButtons" onclick="logout()">Logout</button><br>
 
-    <div class="AdminForms">
-        <h2></h2>
-        <p></p>
-    </div>
-    <div class="AdminForms" id="addBook">
-        <h2>Dodaj książkę do bazy danych</h2>
-        <form>
-            <input type="text" name="tytul" placeholder="Tytuł książki"><br>
-            <input type="text" name="autor" placeholder="Autor książki"><br>
-            <input type="text" name="wydawnictwo" placeholder="Wydawnictwo"><br>
-            <input type="text" name="rokWydania" placeholder="Rok wydania"><br>
-            <button type="submit">Dodaj</button>
-        </form>
-    </div>
+    <div id="content-container"></div>
 
-    <div class="AdminForms" id="deleteBook">
-        <h2>Usuń książkę z bazy danych</h2>
-        <form>
-            <input type="text" name="tytul" placeholder="Tytuł książki"><br>
-            <input type="text" name="autor" placeholder="Autor książki"><br>
-            <input type="text" name="wydawnictwo" placeholder="Wydawnictwo"><br>
-            <input type="text" name="rokWydania" placeholder="Rok wydania"><br>
-            <button type="submit">Usuń</button>
-        </form>
-    </div>
+    <script src="AdminPanelForms.js"></script>
 
-    <div class="AdminForms" id="addUser">
-        <h2>Dodaj użytkownika do bazy danych</h2>
-        <form>
-            <input type="text" name="imie" placeholder="Imię"><br>
-            <input type="text" name="nazwisko" placeholder="Nazwisko"><br>
-            <input type="text" name="rokUrodzenia" placeholder="Rok urodzenia"><br>
-            <input type="text" name="adres" placeholder="Adres"><br>
-            <button type="submit">Dodaj</button>
-        </form>
-    </div>
-
-    <div class="AdminForms" id="deleteUser">
-        <h2>Usuń użytkownika z bazy danych</h2>
-        <form>
-            <input type="text" name="imie" placeholder="Imię"><br>
-            <input type="text" name="nazwisko" placeholder="Nazwisko"><br>
-            <input type="text" name="rokUrodzenia" placeholder="Rok urodzenia"><br>
-            <input type="text" name="adres" placeholder="Adres"><br>
-            <button type="submit">Usuń</button>
-        </form>
-    </div>
-
-    <script>
-        function showForm(formId) {
-            const forms = document.getElementsByClassName("AdminForms");
-            for (const form of forms) {
-                form.style.display = "none";
-            }
-            const selectedForm = document.getElementById(formId);
-            selectedForm.style.display = "block";
-        }
-        document.getElementById("button1").addEventListener("click", function () {
-            showForm("addBook");
-        });
-
-        document.getElementById("button2").addEventListener("click", function () {
-            showForm("deleteBook");
-        });
-
-        document.getElementById("button3").addEventListener("click", function () {
-            showForm("addUser");
-        });
-
-        document.getElementById("button4").addEventListener("click", function () {
-            showForm("deleteUser");
-        });
-    </script>
 </body>
 
 </html>
