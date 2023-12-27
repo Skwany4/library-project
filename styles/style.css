@@ -273,3 +273,29 @@ background-color: #6c757d;
   width: 50%;
   height: 50%;
 }
+.BookCategory
+{
+  color: #f8f9fa;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.BookCategory div{
+  text-align: center;
+  margin: 0, 10px;
+}
+.BookCategory img{
+  width: 10vw;
+  margin: 5px;
+  height: auto;
+
+}
+.BookCategoryItems{
+  border: 2px solid black;
+  padding: 5px;
+  margin: 5px;
+  text-align: center;
+}
+.BookCategoryItems{
+  padding: 10px;
+}
