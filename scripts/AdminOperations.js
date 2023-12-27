@@ -1,12 +1,9 @@
-// AdminOperations.js
 const db = require("./db");
 
 function addBook(req, res) {
     const title = req.body.title;
     const author = req.body.author;
     const copies = req.body.Copies;
-
-    // Perform database operation to add book
     db.query(
         "INSERT INTO books (Title, Author, Available_Copies) VALUES (?, ?, ?)",
         [title, author, copies],
@@ -25,7 +22,6 @@ function deleteBook(req, res) {
     const title = req.body.title;
     const author = req.body.author;
 
-    // Perform database operation to delete book
     db.query(
         "DELETE FROM books WHERE Title = ? AND Author = ?",
         [title, author],
@@ -47,7 +43,6 @@ function addUser(req, res) {
     const password = req.body.Password;
     const role = req.body.Role;
 
-    // Perform database operation to add user
     db.query(
         "INSERT INTO users (First_Name, Last_Name, Email, Password, Role) VALUES (?, ?, ?, ?, ?)",
         [firstName, lastName, email, password, role],
@@ -67,7 +62,6 @@ function deleteUser(req, res) {
     const lastName = req.body.Last_Name;
     const email = req.body.Email;
 
-    // Perform database operation to delete user
     db.query(
         "DELETE FROM users WHERE First_Name = ? AND Last_Name = ? AND Email = ?",
         [firstName, lastName, email],

@@ -15,7 +15,6 @@ app.use(
     saveUninitialized: true,
   })
 );
-app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("styles"));
@@ -30,27 +29,22 @@ const checkAuthentication = (req, res, next) => {
     res.redirect("/login");
   }
 };
-// Obsługa strony logowania
 app.get("/", (req, res) => {
-  // Sprawdź, czy użytkownik jest zalogowany
+
   if (req.session && req.session.loggedin) {
-    // Renderuj odpowiednią stronę dla zalogowanego użytkownika
     const MainPageLoggedInPath = path.join(__dirname, "views", "MainPageLoggedIn.html");
     res.sendFile(MainPageLoggedInPath);
   } else {
-    // Renderuj standardową stronę główną dla niezalogowanego użytkownika
     const MainPagePath = path.join(__dirname, "views", "MainPage.html");
     res.sendFile(MainPagePath);
   }
 });
 app.get("/logout", (req, res) => {
-  // Zakończ sesję
   req.session.destroy((err) => {
     if (err) {
       console.error("Błąd podczas wylogowywania:", err);
       res.send("Błąd podczas wylogowywania");
     } else {
-      // Przekieruj na stronę główną po wylogowaniu
       res.redirect("/");
     }
   });
@@ -67,7 +61,6 @@ app.get("/AdminPanel", checkAuthentication, (req, res) => {
   const AdminPanelPath = path.join(__dirname, "views", "AdminPanel.html");
   res.sendFile(AdminPanelPath);
 });
-// Obsługa danych z formularza logowania
 app.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -100,12 +93,10 @@ app.post("/login", (req, res) => {
   );
 });
 
-// Obsługa strony rejestracji
 app.get("/register", (req, res) => {
   const registerPath = path.join(__dirname, "views", "RegistrationPanel.html");
   res.sendFile(registerPath);
 });
-// Obsługa danych z formularza rejestracji
 app.post("/register", (req, res) => {
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
@@ -119,12 +110,10 @@ app.post("/register", (req, res) => {
     return res.send("Hasła nie są identyczne");
   }
 
-  // Sprawdź czy checkbox jest zaznaczony
   if (!acceptRules) {
     return res.send("Musisz zaakceptować regulamin");
   }
 
-  // Tutaj możesz korzystać z obiektu `db` do wykonywania zapytań SQL
   db.query(
     "INSERT INTO users (First_Name, Last_Name, Email, Password, Role) VALUES (?, ?, ?, ?,?)",
     [firstName, lastName, email, password, role],
@@ -133,7 +122,6 @@ app.post("/register", (req, res) => {
         console.error("Błąd zapytania SQL:", err);
         res.send("Błąd podczas rejestracji");
       } else {
-        // Rejestracja pomyślna
         res.send("Rejestracja pomyślna!");
       }
     }
