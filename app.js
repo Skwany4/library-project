@@ -86,7 +86,9 @@ app.post("/login", (req, res) => {
           }
             
         } else {
-          res.send("Nieprawidłowe dane logowania");
+         // res.send("Nieprawidłowe dane logowania");
+         const loginPath = path.join(__dirname, "views", "LoginPanel.html");
+         res.sendFile(loginPath, { loginError: "Nieprawidłowe dane logowania" });
         }
       }
     }
