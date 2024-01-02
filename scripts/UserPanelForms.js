@@ -12,9 +12,11 @@ function showRentForm() {
   clearContent();
   document.getElementById('content-container').innerHTML = 
   `
-    <form class="UserForm">
+    <form class="UserForm" action="/UserPanel">
       <label for="bookTitle">Book Title:</label>
-      <input type="text" id="bookTitle" name="bookTitle" required> <br>
+      <select id="cars" name="cars">
+
+      </select> <br>
 
       <label for="author">Author:</label>
       <input type="text" id="author" name="author" required> <br>
