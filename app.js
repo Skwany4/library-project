@@ -137,9 +137,7 @@ app.post("/addUser", adminOperations.addUser);
 app.post("/deleteUser", adminOperations.deleteUser);
 
 app.post("/rentBook", userFormsHandlers.rentBook);
-
 app.post("/returnBook", userFormsHandlers.returnBook);
-
 app.post('/extendRent',userFormsHandlers.extendRent);
 
 app.get('/getRentals', checkAuthentication, (req, res) => {
