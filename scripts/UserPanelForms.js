@@ -111,15 +111,35 @@ function showExtendForm() {
 
 function showReturnForm() {
   clearContent();
-  
-  document.getElementById('content-container').innerHTML = `
-  <form class="UserForm">
-    <label for="RentendBookTitle">Select rentend book:</label>
-    <input type="text" id="RentendBookTitle" name="RentendBookTitle" required> <br>
 
-    <button type="submit">Return</button>
-  </form>
-`;
+  fetch('/getRentals', { method: 'GET' })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        const rentals = data.books;
+
+        const selectOptions = rentals.map(rental => `
+          <option value="${rental.Title}">${rental.Title} - ${rental.Author}</option>
+        `).join('');
+
+        document.getElementById('content-container').innerHTML = `
+          <form class="UserForm" method="POST" action="/returnBook">
+            <label for="returnedBookTitle">Select returned book:</label>
+            <select id="returnedBookTitle" name="returnedBookTitle" required>
+              ${selectOptions}
+            </select> <br>
+
+            <button type="submit">Return</button>
+          </form>
+        `;
+      } else {
+        document.getElementById('content-container').innerHTML = '<p>Error fetching rentals</p>';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching rentals:', error);
+      document.getElementById('content-container').innerHTML = '<p>Error fetching rentals</p>';
+    });
 }
 
 function clearContent() {

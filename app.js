@@ -80,7 +80,6 @@ app.post("/login", (req, res) => {
           req.session.loggedin = true;
           req.session.email = email;
           req.session.userId = results[0].User_id;
-          console.log("Session after login:", req.session);
 
           if (role == "admin") {
             res.redirect("/AdminPanel");
@@ -138,6 +137,10 @@ app.post("/addUser", adminOperations.addUser);
 app.post("/deleteUser", adminOperations.deleteUser);
 
 app.post("/rentBook", userFormsHandlers.rentBook);
+
+app.post("/returnBook", userFormsHandlers.returnBook);
+
+app.post('/extendRent',userFormsHandlers.extendRent);
 
 app.get('/getRentals', checkAuthentication, (req, res) => {
   db.query(

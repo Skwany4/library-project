@@ -60,7 +60,99 @@ function rentBook(req, res) {
     }
   );
 }
+function returnBook(req, res) {
+  const userId = req.session.userId;
+  const returnedBookTitle = req.body.returnedBookTitle;
+
+  db.query(
+    "SELECT loans.Loan_id, books.Book_id FROM loans JOIN books ON loans.Book_id = books.Book_id WHERE loans.User_id = ? AND books.Title = ?",
+    [userId, returnedBookTitle],
+    (selectErr, selectResults) => {
+      if (selectErr) {
+        console.error("Error getting loan and book ID:", selectErr);
+        res.send("Error returning book");
+        return;
+      }
+
+      if (selectResults.length === 0) {
+        console.error("No active loan found for the specified book", { userId, returnedBookTitle, Loan_id: null });
+        res.send("No active loan found for the specified book");
+        return;
+      }
+
+      const loanId = selectResults[0].Loan_id;
+      const bookId = selectResults[0].Book_id;
+
+      db.query(
+        "DELETE FROM loans WHERE Loan_id = ?",
+        [loanId],
+        (deleteErr, deleteResults) => {
+          if (deleteErr) {
+            console.error("Error deleting record from loans:", deleteErr);
+            res.send("Error returning book");
+          } else {
+            db.query(
+              "UPDATE books SET Available_Copies = Available_Copies + 1 WHERE Book_id = ?",
+              [bookId],
+              (updateBookErr, updateBookResults) => {
+                if (updateBookErr) {
+                  console.error("Error updating book availability:", updateBookErr);
+                  res.send("Error updating book availability");
+                } else {
+                  res.send("Book returned successfully!");
+                }
+              }
+            );
+          }
+        }
+      );
+    }
+  );
+}
+function extendRent(db, req, res) {
+  const userId = req.session.userId;
+  const bookTitleToExtend = req.body.bookTitle;
+  const previousReturnDate = req.body.previousReturnDate;
+  const newReturnDate = req.body.newReturnDate;
+
+  db.query(
+    "SELECT loans.Loan_id, books.Book_id FROM loans JOIN books ON loans.Book_id = books.Book_id WHERE loans.User_id = ? AND LOWER(books.Title) = LOWER(?) AND loans.Return_Date = ? LIMIT 1",
+    [userId, bookTitleToExtend, previousReturnDate],
+    (selectErr, selectResults) => {
+      if (selectErr) {
+        console.error("Error getting loan and book ID:", selectErr);
+        res.send("Error extending book loan");
+        return;
+      }
+
+      if (selectResults.length === 0) {
+        console.error("No active loan found for the specified book to extend", { userId, bookTitleToExtend, previousReturnDate, Loan_id: null });
+        res.send("No active loan found for the specified book to extend");
+        return;
+      }
+
+      const loanIdToExtend = selectResults[0].Loan_id;
+      const bookIdToExtend = selectResults[0].Book_id;
+
+      // Zakładam, że przedłużenie wypożyczenia oznacza jedynie aktualizację daty zwrotu
+      db.query(
+        "UPDATE loans SET Return_Date = ? WHERE Loan_id = ?",
+        [newReturnDate, loanIdToExtend],
+        (updateErr, updateResults) => {
+          if (updateErr) {
+            console.error("Error updating return date in loans:", updateErr);
+            res.send("Error extending book loan");
+          } else {
+            res.send("Book loan extended successfully!");
+          }
+        }
+      );
+    }
+  );
+}
 
 module.exports = {
   rentBook,
+  returnBook,
+  extendRent,
 };
