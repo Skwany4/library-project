@@ -174,9 +174,6 @@ app.get("/getBooks", (req, res) => {
   });
 });
 
-app.post('/extendRent', (req, res) => {
-  userFormsHandlers.handleExtendRent(db, req, res);
-});
 app.listen(port, () => {
   console.log(`Serwer działa na http://localhost:${port}`);
 });
