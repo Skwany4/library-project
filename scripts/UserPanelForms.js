@@ -6,30 +6,89 @@ function showBookCatalog() {
 
 function showMyRentals() {
   clearContent();
-  document.getElementById('content-container').innerHTML = '<p>My rentals content goes here.</p>';
+
+  fetch('/getRentals', { method: 'GET' })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        const rentals = data.books;
+        const rentalsHtml = rentals.map(rental => `
+          <p>Title: ${rental.Title}</p>
+          <p>Author: ${rental.Author}</p>
+          <p>Loan Date: ${rental.Loan_Date}</p>
+          <p>Return Date: ${rental.Return_Date}</p>
+          <hr>
+        `).join('');
+        
+        document.getElementById('content-container').innerHTML = rentalsHtml;
+      } else {
+        document.getElementById('content-container').innerHTML = '<p>Error fetching rentals</p>';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching rentals:', error);
+      document.getElementById('content-container').innerHTML = '<p>Error fetching rentals</p>';
+    });
 }
+// Zmienna, w której będziemy przechowywać dane o książkach
+let booksData;
+
 function showRentForm() {
   clearContent();
-  document.getElementById('content-container').innerHTML = 
-  `
-    <form class="UserForm" action="/UserPanel">
-      <label for="bookTitle">Book Title:</label>
-      <select id="cars" name="cars">
 
-      </select> <br>
+  // Tworzenie formularza z pustą listą książek
+  document.getElementById('content-container').innerHTML =
+    `
+    <form class="UserForm" method="POST" action="/rentBook">
+      <label for="bookTitle">Book Title:</label>
+      <select id="bookTitle" name="bookTitle"></select> <br>
 
       <label for="author">Author:</label>
-      <input type="text" id="author" name="author" required> <br>
+      <input type="text" id="author" name="author" required readonly> <br>
 
       <label for="RentDate">Select rent date</label>
-      <input type="date" id="RentDate" name="RentDate">
+      <input type="date" id="RentDate" name="rentDate">
 
       <label for="ReturnDate">Select return date</label>
-      <input type="date" id="ReturnDate" name="ReturnDate">
+      <input type="date" id="ReturnDate" name="returnDate">
 
       <button type="submit">Rent</button>
     </form>
-  `
+  `;
+
+  // Pobieranie danych z serwera (np. tytułów książek) po kliknięciu w pole wyboru
+  const booksSelect = document.getElementById('bookTitle');
+  booksSelect.addEventListener('click', function() {
+    // Sprawdź, czy lista książek jest już załadowana
+    if (!booksData) {
+      fetch('/getBooks')
+        .then(response => response.json())
+        .then(data => {
+          // Przypisanie danych do zmiennej booksData
+          booksData = data;
+
+          // Wypełnienie pola wyboru opcjami (tytułami książek)
+          booksData.forEach(book => {
+            const option = document.createElement('option');
+            option.value = book.Title;
+            option.text = book.Title;
+            booksSelect.add(option);
+          });
+        })
+        .catch(error => {
+          console.error('Błąd podczas pobierania danych z serwera:', error);
+        });
+    }
+  });
+
+  // Dodanie obsługi zdarzenia zmiany wybranego tytułu
+  booksSelect.addEventListener('change', function() {
+    const selectedTitle = this.value;
+    const selectedBook = booksData.find(book => book.Title === selectedTitle);
+
+    // Ustawienie wartości pola "Author" na podstawie wybranego tytułu
+    document.getElementById('author').value = selectedBook ? selectedBook.Author : '';
+  });
 }
 
 function showExtendForm() {

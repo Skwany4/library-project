@@ -6,6 +6,7 @@ const app = express();
 const port = 3000;
 const session = require("express-session");
 const adminOperations = require("./scripts/AdminOperations");
+const userFormsHandlers = require('./scripts/UserFormsHandlers');
 
 
 app.use(
@@ -78,6 +79,8 @@ app.post("/login", (req, res) => {
 
           req.session.loggedin = true;
           req.session.email = email;
+          req.session.userId = results[0].User_id;
+          console.log("Session after login:", req.session);
 
           if (role == "admin") {
             res.redirect("/AdminPanel");
@@ -133,6 +136,44 @@ app.post("/addBook", adminOperations.addBook);
 app.post("/deleteBook", adminOperations.deleteBook);
 app.post("/addUser", adminOperations.addUser);
 app.post("/deleteUser", adminOperations.deleteUser);
+
+app.post("/rentBook", userFormsHandlers.rentBook);
+
+app.get('/getRentals', checkAuthentication, (req, res) => {
+  db.query(
+    "SELECT books.Title, books.Author, loans.Loan_Date, loans.Return_Date FROM books JOIN loans ON books.Book_id = loans.Book_id WHERE loans.User_id = ?",
+    [req.session.userId],
+    (err, results) => {
+      if (err) {
+        console.error("Error executing SQL query:", err);
+        res.status(500).json({ success: false, message: "Error fetching rentals" });
+      } else {
+        const rentals = results.map(result => ({
+          Title: result.Title,
+          Author: result.Author,
+          Loan_Date: result.Loan_Date,
+          Return_Date: result.Return_Date
+        }));
+        res.json({ success: true, books: rentals });
+      }
+    }
+  );
+});
+
+app.get("/getBooks", (req, res) => {
+  db.query("SELECT Title, Author FROM books", (err, results) => {
+    if (err) {
+      console.error("Błąd zapytania SQL:", err);
+      res.status(500).json({ error: "Błąd podczas pobierania książek" });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.post('/extendRent', (req, res) => {
+  userFormsHandlers.handleExtendRent(db, req, res);
+});
 app.listen(port, () => {
   console.log(`Serwer działa na http://localhost:${port}`);
 });
