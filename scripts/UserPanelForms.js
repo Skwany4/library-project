@@ -93,20 +93,55 @@ function showRentForm() {
 
 function showExtendForm() {
   clearContent();
-  document.getElementById('content-container').innerHTML =  `
-  <form class="UserForm">
-    <label for="bookTitle">Select book:</label>
-    <input type="text" id="bookTitle" name="bookTitle" required> <br>
 
-    <label for="PriviousRentDate">Select privious return date</label>
-    <input type="date" id="PriviousRentDate" name="PriviousRentDate">
+  fetch('/getRentals', { method: 'GET' })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        const rentals = data.books;
 
-    <label for="NewReturnDate">Select extend date</label>
-    <input type="date" id="NewReturnDate" name="NewReturnDate">
+        const selectOptions = rentals.map(rental => `
+          <option value="${rental.Title}" data-return-date="${rental.Return_Date}">
+            ${rental.Title} - ${rental.Author}
+          </option>
+        `).join('');
 
-    <button type="submit">Extend</button>
-  </form>
-`;
+        document.getElementById('content-container').innerHTML = `
+          <form class="UserForm" method="POST" action="/extendRent">
+            <label for="bookTitle">Select book:</label>
+            <select id="bookTitle" name="bookTitle" required>
+              ${selectOptions}
+            </select> <br>
+
+            <label for="previousReturnDate">Select previous return date:</label>
+            <input type="date" id="previousReturnDate" name="previousReturnDate" required> <br>
+
+            <label for="newReturnDate">Select extend date:</label>
+            <input type="date" id="newReturnDate" name="newReturnDate" required> <br>
+
+            <button type="submit">Extend</button>
+          </form>
+        `;
+
+        // Ustawienie wartości domyślnej na polu wyboru daty zwrotu
+        const bookTitleSelect = document.getElementById('bookTitle');
+        const previousReturnDateInput = document.getElementById('previousReturnDate');
+
+        bookTitleSelect.addEventListener('change', function() {
+          const selectedOption = bookTitleSelect.options[bookTitleSelect.selectedIndex];
+          const returnDate = selectedOption.getAttribute('data-return-date');
+
+          // Ustawienie wartości domyślnej
+          previousReturnDateInput.value = returnDate;
+        });
+      } else {
+        document.getElementById('content-container').innerHTML = '<p>Error fetching rentals</p>';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching rentals:', error);
+      document.getElementById('content-container').innerHTML = '<p>Error fetching rentals</p>';
+    });
 }
 
 function showReturnForm() {

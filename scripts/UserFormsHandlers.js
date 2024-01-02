@@ -109,14 +109,14 @@ function returnBook(req, res) {
     }
   );
 }
-function extendRent(db, req, res) {
+function extendRent(req, res) {
   const userId = req.session.userId;
   const bookTitleToExtend = req.body.bookTitle;
   const previousReturnDate = req.body.previousReturnDate;
   const newReturnDate = req.body.newReturnDate;
 
   db.query(
-    "SELECT loans.Loan_id, books.Book_id FROM loans JOIN books ON loans.Book_id = books.Book_id WHERE loans.User_id = ? AND LOWER(books.Title) = LOWER(?) AND loans.Return_Date = ? LIMIT 1",
+    "SELECT loans.Loan_id, books.Book_id FROM loans JOIN books ON loans.Book_id = books.Book_id WHERE loans.User_id = ? AND LOWER(books.Title) = LOWER(?) AND loans.Return_Date = ?",
     [userId, bookTitleToExtend, previousReturnDate],
     (selectErr, selectResults) => {
       if (selectErr) {
@@ -132,8 +132,6 @@ function extendRent(db, req, res) {
       }
 
       const loanIdToExtend = selectResults[0].Loan_id;
-      const bookIdToExtend = selectResults[0].Book_id;
-
       // Zakładam, że przedłużenie wypożyczenia oznacza jedynie aktualizację daty zwrotu
       db.query(
         "UPDATE loans SET Return_Date = ? WHERE Loan_id = ?",
