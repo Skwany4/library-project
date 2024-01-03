@@ -13,11 +13,13 @@ function showMyRentals() {
       if (data.success) {
         const rentals = data.books;
         const rentalsHtml = rentals.map(rental => `
+        <div class = "UserForm">
           <p>Title: ${rental.Title}</p>
           <p>Author: ${rental.Author}</p>
           <p>Loan Date: ${rental.Loan_Date}</p>
           <p>Return Date: ${rental.Return_Date}</p>
           <hr>
+          </div>
         `).join('');
         
         document.getElementById('content-container').innerHTML = rentalsHtml;
