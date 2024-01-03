@@ -7,12 +7,6 @@ function rentBook(req, res) {
   const rentDate = req.body.rentDate;
   const returnDate = req.body.returnDate;
 
-  console.log("Renting Book - User ID:", userId);
-  console.log("Renting Book - Book Title:", bookTitle);
-  console.log("Renting Book - Author:", author);
-  console.log("Renting Book - Rent Date:", rentDate);
-  console.log("Renting Book - Return Date:", returnDate)
-
   db.query(
     "SELECT Book_id FROM books WHERE Title = ? AND Author = ? AND Available_Copies > 0 LIMIT 1",
     [bookTitle, author],
