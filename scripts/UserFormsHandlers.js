@@ -16,7 +16,7 @@ function rentBook(req, res) {
         res.send("Error renting book");
         return;
       }
-
+      
       if (bookResults.length === 0) {
         console.error("Book not found or no available copies");
         res.send("Error renting book");
